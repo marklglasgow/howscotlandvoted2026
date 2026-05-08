@@ -419,10 +419,10 @@
 <body>
 
 <nav>
-  <a class="nav-logo" href="#"><span>Scot</span>Vote 2026</a>
+  <a class="nav-logo" href="index.html"><span>How Scotland</span> Voted 2026</a>
   <ul class="nav-links">
     <li><a href="#vote-share" class="active">Home</a></li>
-    <li><a href="#topics">Topics</a></li>
+    <li><a href="#topics">Manifesto Topics</a></li>
     <li><a href="manifesto-priorities.html">Manifesto Priorities</a></li>
     <li><a href="#methodology">Methodology</a></li>
     <li><a href="mailto:sendfeedback2026@duck.com?subject=How Scotland Voted 2026 Feedback" class="nav-cta">Feedback →</a></li>
@@ -463,8 +463,8 @@
 
   <!-- TOPIC EXPLORER -->
   <div class="section" id="topics" style="border-top: 1px solid var(--border);">
-    <h2 class="section-title">Topic Explorer</h2>
-    <p class="section-sub">Select a policy topic to see how Scotland voted on that issue, based on each party's manifesto position weighted by their vote share.</p>
+    <h2 class="section-title">Manifesto Topics</h2>
+    <p class="section-sub">Select a topic to see how Scotland voted on that issue, weighted by each party's vote share and manifesto position.</p>
     <div class="topic-grid" id="topicGrid"></div>
     <div class="gauge-section">
       <div class="gauge-header">
@@ -575,6 +575,15 @@ const parties = [
       energy:            2,
       equality:          2,
       localgov:          1,
+      brexit:            2,
+      drugpolicy:        2,
+      socialcare:        2,
+      landownership:     2,
+      costofliving:      2,
+      transrights:       2,
+      mentalhealth:      2,
+      nukes:            -2,
+      freespeech:        1,
     }
   },
   {
@@ -586,18 +595,27 @@ const parties = [
     positions: {
       independence:     -2,
       nhs:               2,
-      housing:           1,
+      housing:           2,
       climate:           1,
-      education:         1,
+      education:         2,
       taxation:          1,
       welfare:           2,
       policing:          1,
       immigration:       0,
-      economy:           1,
+      economy:           0,
       transport:         1,
       energy:            1,
-      equality:          2,
+      equality:          1,
       localgov:          1,
+      brexit:            1,
+      drugpolicy:        1,
+      socialcare:        2,
+      landownership:     0,
+      costofliving:      2,
+      transrights:      -1,
+      mentalhealth:      2,
+      nukes:             1,
+      freespeech:        0,
     }
   },
   {
@@ -617,10 +635,19 @@ const parties = [
       policing:          2,
       immigration:      -2,
       economy:          -1,
-      transport:        -1,
+      transport:        -2,
       energy:           -2,
       equality:         -1,
       localgov:         -1,
+      brexit:           -2,
+      drugpolicy:       -2,
+      socialcare:       -1,
+      landownership:    -2,
+      costofliving:     -1,
+      transrights:      -2,
+      mentalhealth:      0,
+      nukes:             2,
+      freespeech:        2,
     }
   },
   {
@@ -632,10 +659,10 @@ const parties = [
     positions: {
       independence:     -2,
       nhs:               0,
-      housing:           0,
+      housing:          -1,
       climate:           0,
       education:         0,
-      taxation:         -1,
+      taxation:         -2,
       welfare:          -1,
       policing:          1,
       immigration:      -1,
@@ -644,6 +671,15 @@ const parties = [
       energy:            0,
       equality:          0,
       localgov:          0,
+      brexit:           -2,
+      drugpolicy:       -1,
+      socialcare:        1,
+      landownership:    -1,
+      costofliving:      0,
+      transrights:      -1,
+      mentalhealth:      1,
+      nukes:             1,
+      freespeech:        2,
     }
   },
   {
@@ -667,6 +703,15 @@ const parties = [
       energy:            1,
       equality:          2,
       localgov:          2,
+      brexit:            2,
+      drugpolicy:        1,
+      socialcare:        2,
+      landownership:     1,
+      costofliving:      2,
+      transrights:       2,
+      mentalhealth:      2,
+      nukes:            -1,
+      freespeech:        1,
     }
   },
   {
@@ -690,6 +735,15 @@ const parties = [
       energy:            2,
       equality:          2,
       localgov:          2,
+      brexit:            2,
+      drugpolicy:        2,
+      socialcare:        2,
+      landownership:     2,
+      costofliving:      2,
+      transrights:       2,
+      mentalhealth:      2,
+      nukes:            -2,
+      freespeech:        0,
     }
   },
 ];
@@ -699,17 +753,33 @@ const topics = {
     label: 'Scottish Independence',
     desc: 'Support for Scotland becoming an independent nation'
   },
+  brexit: {
+    label: 'Brexit & EU Relations',
+    desc: 'Rejoining the EU, closer ties, or further divergence from European standards. For = rejoin/closer ties; Against = diverge further'
+  },
   nhs: {
     label: 'NHS & Healthcare',
     desc: 'Investment in and protection of the National Health Service'
+  },
+  mentalhealth: {
+    label: 'Mental Health',
+    desc: 'Dedicated mental health funding, waiting time targets, and parity with physical health'
   },
   housing: {
     label: 'Housing & Rent',
     desc: 'Affordable housing, rent controls, and planning reform'
   },
+  costofliving: {
+    label: 'Cost of Living',
+    desc: 'Government action on energy bills, food prices, and household income'
+  },
   climate: {
     label: 'Climate Action',
     desc: 'Net zero targets, renewables, and environmental policy'
+  },
+  energy: {
+    label: 'Energy Policy',
+    desc: 'Renewables expansion vs oil & gas — for = renewables-first'
   },
   education: {
     label: 'Education',
@@ -723,29 +793,49 @@ const topics = {
     label: 'Social Welfare',
     desc: 'Benefits, Universal Credit, and social security spending'
   },
+  socialcare: {
+    label: 'Social Care',
+    desc: 'Funding for elderly and disabled care, free personal care'
+  },
   policing: {
     label: 'Law & Order',
     desc: 'Police funding, sentencing reform, and public safety'
   },
+  nukes: {
+    label: 'Nuclear Weapons',
+    desc: 'Retention of Trident and nuclear deterrent. For = keep/expand; Against = scrap'
+  },
   immigration: {
     label: 'Immigration',
-    desc: 'Open immigration policy and support for migrants'
+    desc: 'Open immigration policy and support for migrants. For = more open; Against = stricter'
+  },
+  drugpolicy: {
+    label: 'Drug Policy',
+    desc: 'Decriminalisation, safe consumption sites, and harm reduction. For = reform; Against = tougher enforcement'
   },
   economy: {
     label: 'Economic Growth',
-    desc: 'Public investment, jobs, and economic development'
+    desc: 'State-led public investment vs market-led growth'
   },
   transport: {
     label: 'Public Transport',
     desc: 'Rail, bus networks, and active travel investment'
   },
-  energy: {
-    label: 'Energy Policy',
-    desc: 'Renewables expansion, oil & gas phase-out, energy bills'
-  },
   equality: {
     label: 'Equality & Rights',
     desc: 'Gender, racial, and LGBTQ+ equality legislation'
+  },
+  transrights: {
+    label: 'Trans Rights',
+    desc: 'Gender recognition reform and trans rights protections. For = strengthen; Against = roll back'
+  },
+  landownership: {
+    label: 'Land Reform',
+    desc: 'Reform of Scotland&#39;s concentrated land ownership. For = more reform; Against = protect current ownership'
+  },
+  freespeech: {
+    label: 'Free Speech & Expression',
+    desc: 'Hate crime laws, online speech regulation, academic freedom. For = stronger speech protections; Against = stronger speech restrictions'
   },
   localgov: {
     label: 'Local Democracy',
@@ -1087,9 +1177,7 @@ Object.entries(topics).forEach(([key, t]) => {
 // ── Initial render ──
 renderVoteBars('constituency', false);
 drawEmptyGauge();
-setTimeout(() => { topicGrid.querySelector('.topic-btn').click(); }, 400);</script>
-
-<script>
+setTimeout(() => { topicGrid.querySelector('.topic-btn').click(); }, 400);
 // Highlight active nav link on scroll
 const sections = ['vote-share','topics','methodology'];
 const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cta)');

@@ -133,6 +133,29 @@
   .method-box strong { color: var(--navy); font-weight: 600; }
   .method-box p + p { margin-top: 0.75rem; }
 
+  .source-tag {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-top: 4px;
+    padding: 1px 5px;
+    border-radius: 3px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .src-manifesto { background: #e8f5e9; color: #2e7d32; }
+  .src-assumed   { background: #fff8e1; color: #8a6300; }
+  .src-website   { background: #e8eaf6; color: #3949ab; }
+
+  .legend {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    margin-bottom: 1.5rem; font-size: 12px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 5px; }
+  .legend-pip { padding: 1px 7px; border-radius: 3px; font-size: 10px; font-weight: 600; letter-spacing: 0.04em; }
+
   footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 12px; color: var(--muted); background: var(--surface2); }
   footer a { color: var(--teal); text-decoration: none; }
 </style>
@@ -140,7 +163,7 @@
 <body>
 
 <nav>
-  <a class="nav-logo" href="index.html"><span>Scot</span>Vote 2026</a>
+  <a class="nav-logo" href="index.html"><span>How Scotland</span> Voted 2026</a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="index.html#topics">Topics</a></li>
@@ -163,9 +186,14 @@
 
     <div class="info-box">
       <span class="icon">ℹ️</span>
-      <span>Positions are scored from manifesto commitments, party websites, and campaign material on a scale of −2 (strongly against) to +2 (strongly for). <strong>Party Top Focus</strong> marks a party's highest-scoring topic; <strong>Party Least Focus</strong> marks their lowest.</span>
+      <span>Positions are scored from manifesto commitments, party websites, and campaign material on a scale of −2 (strongly against) to +2 (strongly for). <strong>Party Top Focus</strong> marks a party&#39;s highest-scoring topic; <strong>Party Least Focus</strong> marks their lowest.</span>
     </div>
 
+    <div class="legend">
+      <span class="legend-item"><span class="legend-pip src-manifesto">MANIFESTO</span> Directly stated in 2026 manifesto</span>
+      <span class="legend-item"><span class="legend-pip src-website">WEBSITE</span> Stated on party website / campaign material</span>
+      <span class="legend-item"><span class="legend-pip src-assumed">ASSUMED</span> Not directly stated — inferred from prior party stance</span>
+    </div>
     <div class="table-wrap">
       <table id="compareTable">
         <thead>
@@ -219,7 +247,7 @@
       <div class="method-box">
         <p><strong>Average salience</strong> measures how strongly parties collectively focus on a topic. For each topic, each party score's distance from neutral (0) is measured and averaged across all parties. Topics with higher average salience appear higher in the table.</p>
         <p><strong>Party Top Focus</strong> marks the single topic where a party has its highest position score. <strong>Party Least Focus</strong> marks the lowest. Where topics tie, the one with higher overall salience is used as a tiebreaker.</p>
-        <p><strong>Scores</strong> are inferred from 2026 manifesto commitments, party websites, and campaign material using the same methodology as <a href="https://scotvote.vercel.app" style="color:var(--teal)">scotvote.vercel.app</a>. Positions run from −2 (strongly against) to +2 (strongly for).</p>
+        <p><strong>Source indicators</strong> show where each position comes from: <strong>Manifesto</strong> = directly stated in the 2026 party manifesto; <strong>Website</strong> = stated on party website or campaign material but not the manifesto; <strong>Assumed</strong> = topic not directly addressed, position inferred from the party's consistent prior stance. Assumed positions should be treated with more caution.</p><p><strong>Scores</strong> are inferred from 2026 manifesto commitments, party websites, and campaign material using the same methodology as <a href="https://scotvote.vercel.app" style="color:var(--teal)">scotvote.vercel.app</a>. Positions run from −2 (strongly against) to +2 (strongly for).</p>
       </div>
     </div>
   </div>
@@ -246,148 +274,201 @@ const topics = [
     label: 'Scottish Independence', emoji: '🏴',
     salience: 1.67,
     pos:   [-2,  2, -2, -1, -2,  2],
-    notes: ['No to independence','Yes to independence','No to independence','No to independence','No to independence','Yes to independence'],
-    top:   [false, true, false, false, false, false],
+    notes: ['No to independence', 'Yes to independence', 'No to independence', 'Against full independence', 'No to independence', 'Yes to independence'],
+    src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+    top:   [false, true, false, false, false, true],
     least: [true, false, true, true, true, false],
+  },
+  {
+    label: 'Brexit & EU Relations', emoji: '🇪🇺',
+    salience: 1.58,
+    pos:   [ 1,  2, -2,  2, -2,  2],
+    notes: ['Actively pursuing EU reset & closer ties', 'Rejoin EU', 'Oppose EU reset, defend Brexit', 'Rejoin EU', 'Further divergence from EU', 'Rejoin EU'],
+    src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+    top:   [false, true, false, true, false, true],
+    least: [false, false, true, false, true, false],
   },
   {
     label: 'NHS & Healthcare', emoji: '🏥',
     salience: 1.50,
-    pos:   [ 2,  1,  1,  2,  1,  2],
-    notes: ['Increase investment','Increase investment','Increase investment','Increase investment','Increase investment','Increase investment'],
-    top:   [true, false, false, true, false, true],
+    pos:   [ 2,  2,  0,  2,  0,  2],
+    notes: ['Cut A&E waits, 300 care home beds', 'NHS job guarantee, 26-week wait target', 'Healthcare Reform Commission, reduce bureaucracy', '900 extra local staff, faster GP access', 'Reduce NHS bureaucracy, tax cuts for staff', 'Safe staffing ratios, free dental care'],
+    src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+    top:   [true, false, false, true, false, false],
     least: [false, false, false, false, false, false],
   },
   {
     label: 'Climate & Environment', emoji: '🌍',
     salience: 1.50,
-    pos:   [ 1,  1, -2,  1, -2,  2],
-    notes: ['Prioritise action','Prioritise action','Deprioritise','Prioritise action','Deprioritise','Prioritise action'],
+    pos:   [ 1,  2, -2,  2, -2,  2],
+    notes: ['Prioritise action', 'Prioritise action, net zero commitment', 'Deprioritise, oppose net zero costs', 'Prioritise action', 'Deprioritise, oppose net zero costs', 'Climate emergency central to manifesto'],
+    src:   ['M', 'M', 'M', 'M', 'M', 'M'],
     top:   [false, false, false, false, false, false],
-    least: [false, false, false, false, true, false],
+    least: [false, false, false, false, false, false],
   },
   {
     label: 'Trans Rights', emoji: '⚧️',
     salience: 1.50,
-    pos:   [ 0,  1, -2,  2, -2,  2],
-    notes: ['No clear lean','Strengthen trans rights','Roll back trans rights','Strengthen trans rights','Roll back trans rights','Strengthen trans rights'],
-    top:   [false, false, false, true, false, true],
-    least: [false, false, true, false, true, false],
+    pos:   [-1,  2, -2,  2, -2,  2],
+    notes: ['Committed to single-sex spaces in NHS & schools', 'Strengthen trans rights, GRR', 'Roll back trans rights', 'Strengthen trans rights', 'Roll back trans rights', 'Strengthen trans rights'],
+    src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+    top:   [false, false, false, false, false, false],
+    least: [true, false, false, false, false, false],
   },
   {
-    label: 'Drug Policy Reform', emoji: '💊',
+    label: 'Mental Health', emoji: '🧠',
     salience: 1.33,
-    pos:   [ 1,  1, -1,  1, -2,  2],
-    notes: ['Decriminalise / treat','Decriminalise / treat','Tougher enforcement','Decriminalise / treat','Tougher enforcement','Decriminalise / treat'],
-    top:   [false, false, false, false, false, true],
-    least: [false, false, false, false, true, false],
+    pos:   [ 2,  2,  1,  2,  0,  2],
+    notes: ['Dedicated mental health funding', 'Dedicated mental health investment', 'Some investment pledged', 'Dedicated funding, faster access', 'No clear policy', 'Dedicated funding, parity of esteem'],
+    src:   ['M', 'M', 'W', 'M', 'A', 'M'],
+    top:   [true, false, false, false, false, false],
+    least: [false, false, false, false, false, false],
+  },
+  {
+    label: 'Drug Policy', emoji: '💊',
+    salience: 1.33,
+    pos:   [ 1,  2, -1,  1, -2,  2],
+    notes: ['Decriminalise, harm reduction approach', 'Safe consumption sites, drug deaths emergency', 'Tougher enforcement', 'Decriminalise, treat as health issue', 'Tougher enforcement, oppose safe sites', 'Decriminalise, safe consumption sites'],
+    src:   ['M', 'M', 'A', 'M', 'A', 'M'],
+    top:   [false, false, false, false, false, false],
+    least: [false, false, false, false, false, false],
   },
   {
     label: 'Equality & Rights', emoji: '🌈',
     salience: 1.33,
-    pos:   [ 1,  1, -1,  1, -2,  2],
-    notes: ['Strengthen protections','Strengthen protections','Roll back','Strengthen protections','Roll back','Strengthen protections'],
-    top:   [false, false, false, false, false, true],
-    least: [false, false, false, false, true, false],
+    pos:   [ 1,  2, -1,  2, -2,  2],
+    notes: ['Strengthen protections, but single-sex spaces caveat', 'Strengthen protections', 'Roll back Hate Crime Act', 'Strengthen protections', 'Roll back Hate Crime Act', 'Strengthen protections, new Human Rights Bill'],
+    src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+    top:   [false, false, false, false, false, false],
+    least: [false, false, false, false, false, false],
+  },
+  {
+    label: 'Cost of Living', emoji: '🛒',
+    salience: 1.25,
+    pos:   [ 2,  2,  0,  2, -1,  2],
+    notes: ['Central campaign pledge, living wage focus', 'Cap food prices, £2 bus fare cap', 'Lower taxes as solution, market approach', 'Enhanced bursaries, cost-of-living measures', 'Tax cuts as solution, market-led', 'UBI, free bus travel, tackle poverty'],
+    src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+    top:   [false, false, false, false, false, false],
+    least: [false, false, false, false, false, false],
   },
   {
     label: 'Social Care', emoji: '🤝',
     salience: 1.17,
-    pos:   [ 2,  1,  1,  1,  1,  1],
-    notes: ['Increase investment','Increase investment','Increase investment','Increase investment','Increase investment','Increase investment'],
-    top:   [true, false, false, false, false, false],
+    pos:   [ 2,  2,  1,  2, -1,  2],
+    notes: ['300 care home beds, 1000 care-at-home packages', 'Community care investment', 'Some investment, reduce waste', 'Carer rights, social care reform', 'Reduce state role', 'Disability rights, social security reform'],
+    src:   ['M', 'M', 'M', 'M', 'A', 'M'],
+    top:   [false, false, false, false, false, false],
+    least: [false, false, false, false, false, false],
+  },
+  {
+    label: 'Housing & Homelessness', emoji: '🏠',
+    salience: 1.17,
+    pos:   [ 2,  2, -1,  1, -1,  2],
+    notes: ['125,000 new homes inc 52,300 affordable by 2031', '£10k first-time buyer help, rent reform', 'Scrap rent controls, market-led supply', 'More affordable homes', 'Market-led supply', '15,700 social homes/year, rent controls'],
+    src:   ['M', 'M', 'M', 'M', 'A', 'M'],
+    top:   [false, false, false, false, false, false],
     least: [false, false, false, false, false, false],
   },
   {
     label: 'Land Reform', emoji: '🌾',
     salience: 1.17,
-    pos:   [ 1,  0, -2,  0, -2,  2],
-    notes: ['More reform','No clear lean','Protect current ownership','No clear lean','Protect current ownership','More reform'],
-    top:   [false, false, false, false, false, true],
-    least: [false, true, false, false, false, false],
+    pos:   [ 0,  2, -1,  1, -2,  2],
+    notes: ['No clear lean', 'Community right to buy, land reform central', 'Protect current landownership', 'Promote community ownership', 'Oppose land reform', 'Radical land reform, community ownership'],
+    src:   ['A', 'M', 'A', 'W', 'A', 'M'],
+    top:   [false, false, false, false, false, false],
+    least: [false, false, false, false, false, false],
   },
   {
     label: 'Energy Policy', emoji: '⚡',
     salience: 1.17,
-    pos:   [ 0,  1, -2,  1, -1,  2],
-    notes: ['No clear lean','Renewables-first','Support oil & gas','Renewables-first','Support oil & gas','Renewables-first'],
-    top:   [false, false, false, false, false, true],
-    least: [false, false, true, false, false, false],
+    pos:   [ 1,  2, -1,  2, -2,  2],
+    notes: ['Renewables support, open to new nuclear', 'Renewables-first, oppose new oil & gas', 'Support new nuclear, some oil & gas', 'Renewables-first, oppose new oil & gas', 'Maximise oil & gas, oppose wind farms', 'Renewables only, oppose fossil fuels'],
+    src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+    top:   [false, false, false, false, false, false],
+    least: [false, false, false, false, false, false],
   },
   {
-    label: 'Cost of Living', emoji: '🛒',
+    label: 'Nuclear Weapons (Trident)', emoji: '☢️',
+    salience: 1.17,
+    pos:   [ 1, -2,  1, -1,  2, -2],
+    notes: ['Retain Trident', 'Scrap Trident, non-nuclear Scotland', 'Retain and renew Trident', 'Retain but review', 'Expand nuclear deterrent', 'Scrap Trident'],
+    src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+    top:   [false, false, false, false, true, false],
+    least: [false, true, false, true, false, true],
+  },
+  {
+    label: 'Tax & Public Spending', emoji: '💷',
     salience: 1.00,
-    pos:   [ 2,  1,  0,  1,  1,  1],
-    notes: ['More government support','More government support','No clear lean','More government support','More government support','More government support'],
-    top:   [true, false, false, false, false, false],
+    pos:   [ 1,  1, -2,  0, -2,  2],
+    notes: ['Higher tax for top earners, public investment', 'Higher tax & spend, progressive taxation', 'Lower taxes, "common sense" economics', 'No clear lean, balanced approach', 'Flat tax, slash public spending', 'Wealth tax, high public spending'],
+    src:   ['M', 'M', 'M', 'W', 'M', 'M'],
+    top:   [false, false, false, false, false, false],
     least: [false, false, false, false, false, false],
   },
   {
     label: 'Public Transport', emoji: '🚌',
     salience: 1.00,
-    pos:   [ 1,  0,  1,  2,  0,  2],
-    notes: ['Expand & invest','No clear lean','Expand & invest','Expand & invest','No clear lean','Expand & invest'],
-    top:   [false, false, false, true, false, true],
-    least: [false, true, false, false, true, false],
-  },
-  {
-    label: 'Tax & Public Spending', emoji: '💷',
-    salience: 1.00,
-    pos:   [ 1,  0, -2,  0, -2,  1],
-    notes: ['Higher tax & spend','No clear lean','Lower tax & spend','No clear lean','Lower tax & spend','Higher tax & spend'],
+    pos:   [ 1,  2, -1,  2, -2,  2],
+    notes: ['Expand & invest', '£2 nationwide bus fare cap, active travel', 'Opposes car reduction targets', 'Expand & invest, active travel', 'Abolish car reduction targets, oppose bus reform', 'Nationalise buses, free travel'],
+    src:   ['M', 'M', 'M', 'M', 'M', 'M'],
     top:   [false, false, false, false, false, false],
-    least: [false, true, true, true, true, false],
+    least: [false, false, false, false, false, false],
   },
   {
     label: 'Education', emoji: '🎓',
     salience: 0.83,
-    pos:   [ 1,  1,  1,  1,  0,  1],
-    notes: ['Increase investment','Increase investment','Increase investment','Increase investment','No clear lean','Increase investment'],
+    pos:   [ 2,  1,  1,  2, -1,  1],
+    notes: ['Recruit teachers, maintain free tuition', 'Maintain free tuition, bursaries', 'Retain free tuition, examine alternatives, Skills Bill', 'Enhanced bursaries, 10-yr workforce plan', 'No clear lean', 'Student hardship fund, extend bursaries'],
+    src:   ['M', 'M', 'M', 'M', 'A', 'M'],
     top:   [false, false, false, false, false, false],
-    least: [false, false, false, false, true, false],
+    least: [false, false, false, false, false, false],
   },
   {
     label: 'Economy & Jobs', emoji: '📈',
     salience: 0.83,
-    pos:   [ 1,  0, -2,  0, -2,  0],
-    notes: ['State-led growth','No clear lean','Market-led growth','No clear lean','Market-led growth','No clear lean'],
+    pos:   [ 0,  1, -1,  0, -1,  1],
+    notes: ['Centrist, reduce business rates, openness to nuclear', 'New major projects office, high-growth sectors', 'Market-led, lower business rates', 'No clear lean', 'Market-led, deregulate', 'State-led, green jobs, UBI'],
+    src:   ['M', 'M', 'M', 'A', 'W', 'M'],
     top:   [false, false, false, false, false, false],
-    least: [false, true, false, true, false, true],
-  },
-  {
-    label: 'Housing & Homelessness', emoji: '🏠',
-    salience: 0.83,
-    pos:   [ 1,  0, -1,  0,  1,  2],
-    notes: ['More social housing','No clear lean','Market-led supply','No clear lean','More social housing','More social housing'],
-    top:   [false, false, false, false, false, true],
-    least: [false, true, false, true, false, false],
+    least: [false, false, false, false, false, false],
   },
   {
     label: 'Policing & Justice', emoji: '⚖️',
     salience: 0.83,
     pos:   [ 1,  0,  2,  0,  2,  0],
-    notes: ['More police & powers','No clear lean','More police & powers','No clear lean','More police & powers','No clear lean'],
+    notes: ['More police, tackle drug deaths', 'No clear lean', 'More police, tougher sentencing', 'No clear lean', 'More police, tougher sentencing, stop-and-search', 'No clear lean, oppose punitive approach'],
+    src:   ['M', 'A', 'M', 'A', 'M', 'A'],
     top:   [false, false, true, false, true, false],
-    least: [false, true, false, true, false, true],
+    least: [false, true, false, false, false, true],
   },
   {
     label: 'Immigration & Borders', emoji: '🛂',
     salience: 0.83,
-    pos:   [ 0,  1, -1,  0, -2,  1],
-    notes: ['No clear lean','More open policy','Stricter controls','No clear lean','Stricter controls','More open policy'],
+    pos:   [ 0,  1, -1,  1, -2,  2],
+    notes: ['No clear lean (reserved matter)', 'More open policy, welcome migrants', 'Stricter controls', 'More open, humane asylum system', 'Strict caps, deportations', 'More open, refugees welcome'],
+    src:   ['A', 'M', 'M', 'M', 'M', 'M'],
     top:   [false, false, false, false, false, false],
-    least: [true, false, false, true, true, false],
+    least: [false, false, false, false, false, false],
+  },
+  {
+    label: 'Free Speech & Expression', emoji: '🗣️',
+    salience: 0.67,
+    pos:   [ 0,  1,  2,  1,  2,  0],
+    notes: ['Nuanced, reform lobbying rules', 'Balance speech & harm', 'Repeal Hate Crime Act, protect free speech', 'Protect free speech', 'Maximise free speech, repeal Hate Crime Act', 'Balance speech & harm'],
+    src:   ['M', 'W', 'M', 'M', 'M', 'W'],
+    top:   [false, false, true, false, false, false],
+    least: [false, false, false, false, false, false],
   },
   {
     label: 'Rural Affairs & Farming', emoji: '🚜',
     salience: 0.50,
-    pos:   [ 0,  0,  2,  0,  1,  0],
-    notes: ['No clear lean','No clear lean','More rural support','No clear lean','More rural support','No clear lean'],
-    top:   [false, false, true, false, false, false],
-    least: [true, true, false, true, false, true],
+    pos:   [ 0,  1,  2,  1,  1,  0],
+    notes: ['No clear lean', 'Support rural communities', 'Strong rural support, farming focus', 'Fair Deal for Rural Healthcare', 'More rural support', 'No clear lean'],
+    src:   ['A', 'M', 'M', 'M', 'W', 'A'],
+    top:   [false, false, false, false, false, false],
+    least: [false, false, false, false, false, false],
   },
 ];
-
 function posToStance(p) {
   if (p >=  2) return { cls: 'badge-sf', label: 'Strongly For' };
   if (p >=  1) return { cls: 'badge-f',  label: 'For' };
@@ -417,11 +498,19 @@ topics.forEach(t => {
     const stance = posToStance(p);
     const isTop   = t.top[i];
     const isLeast = t.least[i];
+    const srcCode = t.src[i];
+    const srcMap  = {
+      'M': { cls: 'src-manifesto', label: 'Manifesto' },
+      'W': { cls: 'src-website',   label: 'Website / Campaign' },
+      'A': { cls: 'src-assumed',   label: 'Assumed from prior stance' },
+    };
+    const srcTag = srcMap[srcCode] || srcMap['A'];
     cells += `<td class="stance-cell">
       ${isTop   ? '<span class="focus-tag">★ Party Top Focus</span>'   : ''}
       ${isLeast ? '<span class="focus-tag least">▾ Party Least Focus</span>' : ''}
       <span class="stance-badge ${stance.cls}">${stance.label}</span>
       <span class="stance-note">${t.notes[i]}</span>
+      <span class="source-tag ${srcTag.cls}">${srcTag.label}</span>
     </td>`;
   });
 
