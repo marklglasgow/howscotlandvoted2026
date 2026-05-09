@@ -1099,45 +1099,61 @@ function drawEmptyGauge() {
 function renderVoteBars(voteType, withNonVoters) {
   const voteGrid = document.getElementById('voteGrid');
   voteGrid.innerHTML = '';
-  const voterTotal = parties.reduce((a,p) => a + getShareForType(p, voteType), 0);
+
+  // Calculate smaller parties combined share for this vote type
+  const smallScale = voteType === 'constituency' ? 0 : voteType === 'regional' ? 1 : 0.5;
+  const otherRaw = smallerParties.reduce((a, p) => a + p.shareRegional * smallScale, 0);
+
+  const mainRaw   = parties.reduce((a, p) => a + getShareForType(p, voteType), 0);
+  const voterTotal = mainRaw + otherRaw;
   const grandTotal = withNonVoters ? (voterTotal / (TURNOUT / 100)) : voterTotal;
 
+  // Main 6 parties
   parties.forEach(p => {
-    const raw = getShareForType(p, voteType);
-    // as % of electorate if non-voters shown, else % of voters
-    const displayPct = withNonVoters
-      ? (raw / grandTotal * 100).toFixed(1)
-      : (raw / voterTotal * 100).toFixed(1);
+    const raw    = getShareForType(p, voteType);
     const barPct = (raw / grandTotal * 100).toFixed(1);
     const row = document.createElement('div');
     row.className = 'party-row';
-    row.innerHTML = `
-      <span class="party-name">${p.name}</span>
-      <div class="bar-track">
-        <div class="bar-fill" style="width:0%;background:${p.color}" data-target="${barPct}"></div>
-      </div>
-      <span class="bar-pct">${raw.toFixed(1)}%</span>
-    `;
+    row.innerHTML = '<span class="party-name">' + p.name + '</span>'
+      + '<div class="bar-track"><div class="bar-fill" style="width:0%;background:' + p.color + '" data-target="' + barPct + '"></div></div>'
+      + '<span class="bar-pct">' + raw.toFixed(1) + '%</span>';
     voteGrid.appendChild(row);
   });
 
-  // non-voter row
+  // Other parties combined block (only when regional share exists)
+  if (otherRaw > 0) {
+    const barPct = (otherRaw / grandTotal * 100).toFixed(1);
+    // Build a striped gradient from each smaller party's colour proportionally
+    const stops = [];
+    let cursor = 0;
+    smallerParties.forEach(function(p) {
+      const w = (p.shareRegional * smallScale / otherRaw * 100);
+      stops.push(p.color + ' ' + cursor.toFixed(1) + '% ' + (cursor + w).toFixed(1) + '%');
+      cursor += w;
+    });
+    const grad = 'linear-gradient(90deg,' + stops.join(',') + ')';
+    const row = document.createElement('div');
+    row.className = 'party-row';
+    row.style.opacity = '0.75';
+    row.innerHTML = '<span class="party-name" style="color:var(--muted);font-style:italic">Other parties</span>'
+      + '<div class="bar-track"><div class="bar-fill" style="width:0%;background:' + grad + ';opacity:0.85" data-target="' + barPct + '"></div></div>'
+      + '<span class="bar-pct" style="color:var(--muted)">' + otherRaw.toFixed(1) + '%</span>';
+    voteGrid.appendChild(row);
+  }
+
+  // Non-voter row
   if (withNonVoters) {
     const nvPct = (100 - TURNOUT).toFixed(1);
     const row = document.createElement('div');
     row.className = 'party-row';
-    row.innerHTML = `
-      <span class="party-name" style="color:var(--muted)">Did not vote</span>
-      <div class="bar-track">
-        <div class="bar-fill" style="width:0%;background:${NON_VOTER_COLOR};opacity:0.7" data-target="${nvPct}"></div>
-      </div>
-      <span class="bar-pct" style="color:var(--muted)">${nvPct}%</span>
-    `;
+    row.innerHTML = '<span class="party-name" style="color:var(--muted)">Did not vote</span>'
+      + '<div class="bar-track"><div class="bar-fill" style="width:0%;background:' + NON_VOTER_COLOR + ';opacity:0.7" data-target="' + nvPct + '"></div></div>'
+      + '<span class="bar-pct" style="color:var(--muted)">' + nvPct + '%</span>';
     voteGrid.appendChild(row);
   }
 
-  setTimeout(() => {
-    document.querySelectorAll('.bar-fill').forEach(el => {
+  setTimeout(function() {
+    document.querySelectorAll('.bar-fill').forEach(function(el) {
       el.style.width = el.dataset.target + '%';
     });
   }, 50);
