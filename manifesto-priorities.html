@@ -156,6 +156,46 @@
   .legend-item { display: flex; align-items: center; gap: 5px; }
   .legend-pip { padding: 1px 7px; border-radius: 3px; font-size: 10px; font-weight: 600; letter-spacing: 0.04em; }
 
+  /* SMALLER PARTIES SUMMARY */
+  .smaller-parties { margin-top: 2.5rem; border-top: 1px solid var(--border); padding-top: 2rem; }
+  .smaller-parties-title {
+    font-family: "Playfair Display", serif;
+    font-size: 1.3rem; font-weight: 700; font-style: italic;
+    color: var(--navy); margin-bottom: 0.3rem;
+  }
+  .smaller-parties-sub { font-size: 0.875rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .sp-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+  .sp-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.1rem 1.25rem;
+    font-size: 13px;
+  }
+  .sp-header {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 0.6rem;
+  }
+  .sp-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .sp-name { font-weight: 600; font-size: 14px; color: var(--navy); }
+  .sp-share { font-size: 11px; color: var(--muted); margin-left: auto; }
+  .sp-positions { list-style: none; padding: 0; margin: 0; }
+  .sp-positions li {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 3px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 8px;
+    font-size: 12px;
+  }
+  .sp-positions li:last-child { border-bottom: none; }
+  .sp-topic { color: var(--muted); flex-shrink: 0; }
+  .sp-stance { font-weight: 500; text-align: right; }
+  .sp-src { font-size: 10px; padding: 1px 5px; border-radius: 3px; margin-left: 4px; flex-shrink: 0; }
+
   footer { border-top: 1px solid var(--border); padding: 2rem; text-align: center; font-size: 12px; color: var(--muted); background: var(--surface2); }
   footer a { color: var(--teal); text-decoration: none; }
 </style>
@@ -241,6 +281,120 @@
       </table>
     </div>
 
+
+    <!-- SMALLER PARTIES SUMMARY -->
+    <div class="smaller-parties">
+      <h3 class="smaller-parties-title">Smaller Party Positions</h3>
+      <p class="smaller-parties-sub">Parties outside the top six that received notable vote shares on the regional list. Positions inferred from manifestos, websites and prior stances — treat with more caution where sources are thinner.</p>
+      <div class="sp-grid">
+
+        <!-- Scottish Family Party -->
+        <div class="sp-card">
+          <div class="sp-header">
+            <div class="sp-dot" style="background:#8b4513"></div>
+            <span class="sp-name">Scottish Family Party</span>
+            <span class="sp-share">0.7% regional</span>
+          </div>
+          <ul class="sp-positions">
+            <li><span class="sp-topic">Independence</span><span class="sp-stance" style="color:#ef4444">Strongly Against <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Trans Rights</span><span class="sp-stance" style="color:#ef4444">Strongly Against — pro-biology <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Free Speech</span><span class="sp-stance" style="color:#22c55e">Strongly For — repeal Hate Crime Act <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Education</span><span class="sp-stance" style="color:#22c55e">Strongly For — scrap CfE, rigour <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Drug Policy</span><span class="sp-stance" style="color:#ef4444">Strongly Against — enforcement <span class="sp-src src-assumed">A</span></span></li>
+            <li><span class="sp-topic">Climate</span><span class="sp-stance" style="color:#fca5a5">Against — sceptical of net zero costs <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Abortion / Life</span><span class="sp-stance" style="color:#ef4444">Pro-life, restrict abortions <span class="sp-src src-manifesto">M</span></span></li>
+          </ul>
+        </div>
+
+        <!-- Independent Green Voice -->
+        <div class="sp-card">
+          <div class="sp-header">
+            <div class="sp-dot" style="background:#2e8b57"></div>
+            <span class="sp-name">Independent Green Voice</span>
+            <span class="sp-share">0.9% regional</span>
+          </div>
+          <ul class="sp-positions">
+            <li><span class="sp-topic">Independence</span><span class="sp-stance" style="color:#22c55e">Strongly For <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Housing</span><span class="sp-stance" style="color:#22c55e">Strongly For — social housing <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Energy</span><span class="sp-stance" style="color:#22c55e">Strongly For — energy sovereignty <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Economy</span><span class="sp-stance" style="color:#86efac">For — economic sovereignty <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">NHS</span><span class="sp-stance" style="color:#22c55e">Strongly For — free healthcare <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Brexit / EU</span><span class="sp-stance" style="color:#a3a3a3">Neutral / no clear lean <span class="sp-src src-assumed">A</span></span></li>
+            <li><span class="sp-topic">Trans Rights</span><span class="sp-stance" style="color:#a3a3a3">No clear lean <span class="sp-src src-assumed">A</span></span></li>
+          </ul>
+        </div>
+
+        <!-- Alliance to Liberate Scotland -->
+        <div class="sp-card">
+          <div class="sp-header">
+            <div class="sp-dot" style="background:#006994"></div>
+            <span class="sp-name">Alliance to Liberate Scotland</span>
+            <span class="sp-share">0.8% regional</span>
+          </div>
+          <ul class="sp-positions">
+            <li><span class="sp-topic">Independence</span><span class="sp-stance" style="color:#22c55e">Strongly For — central aim <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Brexit / EU</span><span class="sp-stance" style="color:#22c55e">Strongly For — rejoin EU <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Land Reform</span><span class="sp-stance" style="color:#22c55e">Strongly For — radical reform <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Trans Rights</span><span class="sp-stance" style="color:#22c55e">Strongly For <span class="sp-src src-website">W</span></span></li>
+            <li><span class="sp-topic">Trident</span><span class="sp-stance" style="color:#ef4444">Strongly Against — scrap <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Climate</span><span class="sp-stance" style="color:#22c55e">Strongly For <span class="sp-src src-website">W</span></span></li>
+            <li><span class="sp-topic">NHS</span><span class="sp-stance" style="color:#22c55e">Strongly For — full public ownership <span class="sp-src src-website">W</span></span></li>
+          </ul>
+        </div>
+
+        <!-- Scottish Socialist Party -->
+        <div class="sp-card">
+          <div class="sp-header">
+            <div class="sp-dot" style="background:#cc0000"></div>
+            <span class="sp-name">Scottish Socialist Party</span>
+            <span class="sp-share">0.4% regional</span>
+          </div>
+          <ul class="sp-positions">
+            <li><span class="sp-topic">Independence</span><span class="sp-stance" style="color:#22c55e">Strongly For — socialist republic <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Brexit / EU</span><span class="sp-stance" style="color:#22c55e">Strongly For — rejoin EU <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">NHS</span><span class="sp-stance" style="color:#22c55e">Strongly For — fully nationalise <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Trident</span><span class="sp-stance" style="color:#ef4444">Strongly Against — scrap <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Land Reform</span><span class="sp-stance" style="color:#22c55e">Strongly For — radical reform <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Drug Policy</span><span class="sp-stance" style="color:#22c55e">Strongly For — decriminalise <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Tax & Spend</span><span class="sp-stance" style="color:#22c55e">Strongly For — wealth tax <span class="sp-src src-manifesto">M</span></span></li>
+          </ul>
+        </div>
+
+        <!-- Scottish Family Party note on Independence for Scotland Party -->
+        <div class="sp-card">
+          <div class="sp-header">
+            <div class="sp-dot" style="background:#4a90d9"></div>
+            <span class="sp-name">Independence for Scotland Party</span>
+            <span class="sp-share">0.4% regional</span>
+          </div>
+          <ul class="sp-positions">
+            <li><span class="sp-topic">Independence</span><span class="sp-stance" style="color:#22c55e">Strongly For — sole purpose <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">All other topics</span><span class="sp-stance" style="color:#a3a3a3">Single-issue party — no clear positions stated <span class="sp-src src-assumed">A</span></span></li>
+          </ul>
+          <p style="font-size:11px;color:var(--muted);margin-top:8px;">Direct democracy / independence-first party. No detailed manifesto on other policy areas.</p>
+        </div>
+
+        <!-- Scottish Libertarian Party -->
+        <div class="sp-card">
+          <div class="sp-header">
+            <div class="sp-dot" style="background:#f5a623"></div>
+            <span class="sp-name">Scottish Libertarian Party</span>
+            <span class="sp-share">0.1% regional</span>
+          </div>
+          <ul class="sp-positions">
+            <li><span class="sp-topic">Taxation</span><span class="sp-stance" style="color:#ef4444">Strongly Against — slash taxes <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Free Speech</span><span class="sp-stance" style="color:#22c55e">Strongly For — maximise freedom <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Climate</span><span class="sp-stance" style="color:#ef4444">Strongly Against — oppose net zero <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">NHS</span><span class="sp-stance" style="color:#ef4444">Strongly Against — market-led healthcare <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Drug Policy</span><span class="sp-stance" style="color:#22c55e">Strongly For — full legalisation <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Immigration</span><span class="sp-stance" style="color:#22c55e">Strongly For — open borders <span class="sp-src src-manifesto">M</span></span></li>
+            <li><span class="sp-topic">Independence</span><span class="sp-stance" style="color:#a3a3a3">No clear lean <span class="sp-src src-assumed">A</span></span></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
     <!-- Methodology -->
     <div class="section" id="methodology">
       <h2 class="section-title">How this table is calculated</h2>
@@ -273,200 +427,310 @@ const topics = [
   {
     label: 'Scottish Independence', emoji: '🏴',
     salience: 1.67,
-    pos:   [-2,  2, -2, -1, -2,  2],
+    pos:   [-2, 2, -2, -1, -2, 2],
+
     notes: ['No to independence', 'Yes to independence', 'No to independence', 'Against full independence', 'No to independence', 'Yes to independence'],
+
     src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+
     top:   [false, true, false, false, false, true],
+
     least: [true, false, true, true, true, false],
+
   },
   {
     label: 'Brexit & EU Relations', emoji: '🇪🇺',
     salience: 1.58,
-    pos:   [ 1,  2, -2,  2, -2,  2],
+    pos:   [1, 2, -2, 2, -2, 2],
+
     notes: ['Actively pursuing EU reset & closer ties', 'Rejoin EU', 'Oppose EU reset, defend Brexit', 'Rejoin EU', 'Further divergence from EU', 'Rejoin EU'],
+
     src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+
     top:   [false, true, false, true, false, true],
+
     least: [false, false, true, false, true, false],
+
   },
   {
     label: 'NHS & Healthcare', emoji: '🏥',
     salience: 1.50,
-    pos:   [ 2,  2,  0,  2,  0,  2],
+    pos:   [2, 2, 0, 2, 0, 2],
+
     notes: ['Cut A&E waits, 300 care home beds', 'NHS job guarantee, 26-week wait target', 'Healthcare Reform Commission, reduce bureaucracy', '900 extra local staff, faster GP access', 'Reduce NHS bureaucracy, tax cuts for staff', 'Safe staffing ratios, free dental care'],
+
     src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+
     top:   [true, false, false, true, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Climate & Environment', emoji: '🌍',
     salience: 1.50,
-    pos:   [ 1,  2, -2,  2, -2,  2],
+    pos:   [1, 2, -2, 2, -2, 2],
+
     notes: ['Prioritise action', 'Prioritise action, net zero commitment', 'Deprioritise, oppose net zero costs', 'Prioritise action', 'Deprioritise, oppose net zero costs', 'Climate emergency central to manifesto'],
+
     src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+
     top:   [false, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Trans Rights', emoji: '⚧️',
     salience: 1.50,
-    pos:   [-1,  2, -2,  2, -2,  2],
+    pos:   [-1, 2, -2, 2, -2, 2],
+
     notes: ['Committed to single-sex spaces in NHS & schools', 'Strengthen trans rights, GRR', 'Roll back trans rights', 'Strengthen trans rights', 'Roll back trans rights', 'Strengthen trans rights'],
+
     src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+
     top:   [false, false, false, false, false, false],
+
     least: [true, false, false, false, false, false],
+
   },
   {
     label: 'Mental Health', emoji: '🧠',
     salience: 1.33,
-    pos:   [ 2,  2,  1,  2,  0,  2],
+    pos:   [2, 2, 1, 2, 0, 2],
+
     notes: ['Dedicated mental health funding', 'Dedicated mental health investment', 'Some investment pledged', 'Dedicated funding, faster access', 'No clear policy', 'Dedicated funding, parity of esteem'],
+
     src:   ['M', 'M', 'W', 'M', 'A', 'M'],
+
     top:   [true, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Drug Policy', emoji: '💊',
     salience: 1.33,
-    pos:   [ 1,  2, -1,  1, -2,  2],
+    pos:   [1, 2, -1, 1, -2, 2],
+
     notes: ['Decriminalise, harm reduction approach', 'Safe consumption sites, drug deaths emergency', 'Tougher enforcement', 'Decriminalise, treat as health issue', 'Tougher enforcement, oppose safe sites', 'Decriminalise, safe consumption sites'],
+
     src:   ['M', 'M', 'A', 'M', 'A', 'M'],
+
     top:   [false, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Equality & Rights', emoji: '🌈',
     salience: 1.33,
-    pos:   [ 1,  2, -1,  2, -2,  2],
+    pos:   [1, 2, -1, 2, -2, 2],
+
     notes: ['Strengthen protections, but single-sex spaces caveat', 'Strengthen protections', 'Roll back Hate Crime Act', 'Strengthen protections', 'Roll back Hate Crime Act', 'Strengthen protections, new Human Rights Bill'],
+
     src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+
     top:   [false, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Cost of Living', emoji: '🛒',
     salience: 1.25,
-    pos:   [ 2,  2,  0,  2, -1,  2],
+    pos:   [2, 2, 0, 2, -1, 2],
+
     notes: ['Central campaign pledge, living wage focus', 'Cap food prices, £2 bus fare cap', 'Lower taxes as solution, market approach', 'Enhanced bursaries, cost-of-living measures', 'Tax cuts as solution, market-led', 'UBI, free bus travel, tackle poverty'],
+
     src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+
     top:   [false, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Social Care', emoji: '🤝',
     salience: 1.17,
-    pos:   [ 2,  2,  1,  2, -1,  2],
+    pos:   [2, 2, 1, 2, -1, 2],
+
     notes: ['300 care home beds, 1000 care-at-home packages', 'Community care investment', 'Some investment, reduce waste', 'Carer rights, social care reform', 'Reduce state role', 'Disability rights, social security reform'],
+
     src:   ['M', 'M', 'M', 'M', 'A', 'M'],
+
     top:   [false, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Housing & Homelessness', emoji: '🏠',
     salience: 1.17,
-    pos:   [ 2,  2, -1,  1, -1,  2],
+    pos:   [2, 2, -1, 1, -1, 2],
+
     notes: ['125,000 new homes inc 52,300 affordable by 2031', '£10k first-time buyer help, rent reform', 'Scrap rent controls, market-led supply', 'More affordable homes', 'Market-led supply', '15,700 social homes/year, rent controls'],
+
     src:   ['M', 'M', 'M', 'M', 'A', 'M'],
+
     top:   [false, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Land Reform', emoji: '🌾',
     salience: 1.17,
-    pos:   [ 0,  2, -1,  1, -2,  2],
+    pos:   [0, 2, -1, 1, -2, 2],
+
     notes: ['No clear lean', 'Community right to buy, land reform central', 'Protect current landownership', 'Promote community ownership', 'Oppose land reform', 'Radical land reform, community ownership'],
+
     src:   ['A', 'M', 'A', 'W', 'A', 'M'],
+
     top:   [false, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Energy Policy', emoji: '⚡',
     salience: 1.17,
-    pos:   [ 1,  2, -1,  2, -2,  2],
+    pos:   [1, 2, -1, 2, -2, 2],
+
     notes: ['Renewables support, open to new nuclear', 'Renewables-first, oppose new oil & gas', 'Support new nuclear, some oil & gas', 'Renewables-first, oppose new oil & gas', 'Maximise oil & gas, oppose wind farms', 'Renewables only, oppose fossil fuels'],
+
     src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+
     top:   [false, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Nuclear Weapons (Trident)', emoji: '☢️',
     salience: 1.17,
-    pos:   [ 1, -2,  1, -1,  2, -2],
+    pos:   [1, -2, 1, -1, 2, -2],
+
     notes: ['Retain Trident', 'Scrap Trident, non-nuclear Scotland', 'Retain and renew Trident', 'Retain but review', 'Expand nuclear deterrent', 'Scrap Trident'],
+
     src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+
     top:   [false, false, false, false, true, false],
+
     least: [false, true, false, true, false, true],
+
   },
   {
     label: 'Tax & Public Spending', emoji: '💷',
     salience: 1.00,
-    pos:   [ 1,  1, -2,  0, -2,  2],
+    pos:   [1, 1, -2, 0, -2, 2],
+
     notes: ['Higher tax for top earners, public investment', 'Higher tax & spend, progressive taxation', 'Lower taxes, "common sense" economics', 'No clear lean, balanced approach', 'Flat tax, slash public spending', 'Wealth tax, high public spending'],
+
     src:   ['M', 'M', 'M', 'W', 'M', 'M'],
+
     top:   [false, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Public Transport', emoji: '🚌',
     salience: 1.00,
-    pos:   [ 1,  2, -1,  2, -2,  2],
+    pos:   [1, 2, -1, 2, -2, 2],
+
     notes: ['Expand & invest', '£2 nationwide bus fare cap, active travel', 'Opposes car reduction targets', 'Expand & invest, active travel', 'Abolish car reduction targets, oppose bus reform', 'Nationalise buses, free travel'],
+
     src:   ['M', 'M', 'M', 'M', 'M', 'M'],
+
     top:   [false, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Education', emoji: '🎓',
     salience: 0.83,
-    pos:   [ 2,  1,  1,  2, -1,  1],
+    pos:   [2, 1, 1, 2, -1, 1],
+
     notes: ['Recruit teachers, maintain free tuition', 'Maintain free tuition, bursaries', 'Retain free tuition, examine alternatives, Skills Bill', 'Enhanced bursaries, 10-yr workforce plan', 'No clear lean', 'Student hardship fund, extend bursaries'],
+
     src:   ['M', 'M', 'M', 'M', 'A', 'M'],
+
     top:   [false, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Economy & Jobs', emoji: '📈',
     salience: 0.83,
-    pos:   [ 0,  1, -1,  0, -1,  1],
+    pos:   [0, 1, -1, 0, -1, 1],
+
     notes: ['Centrist, reduce business rates, openness to nuclear', 'New major projects office, high-growth sectors', 'Market-led, lower business rates', 'No clear lean', 'Market-led, deregulate', 'State-led, green jobs, UBI'],
+
     src:   ['M', 'M', 'M', 'A', 'W', 'M'],
+
     top:   [false, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Policing & Justice', emoji: '⚖️',
     salience: 0.83,
-    pos:   [ 1,  0,  2,  0,  2,  0],
+    pos:   [1, 0, 2, 0, 2, 0],
+
     notes: ['More police, tackle drug deaths', 'No clear lean', 'More police, tougher sentencing', 'No clear lean', 'More police, tougher sentencing, stop-and-search', 'No clear lean, oppose punitive approach'],
+
     src:   ['M', 'A', 'M', 'A', 'M', 'A'],
+
     top:   [false, false, true, false, true, false],
+
     least: [false, true, false, false, false, true],
+
   },
   {
     label: 'Immigration & Borders', emoji: '🛂',
     salience: 0.83,
-    pos:   [ 0,  1, -1,  1, -2,  2],
+    pos:   [0, 1, -1, 1, -2, 2],
+
     notes: ['No clear lean (reserved matter)', 'More open policy, welcome migrants', 'Stricter controls', 'More open, humane asylum system', 'Strict caps, deportations', 'More open, refugees welcome'],
+
     src:   ['A', 'M', 'M', 'M', 'M', 'M'],
+
     top:   [false, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Free Speech & Expression', emoji: '🗣️',
     salience: 0.67,
-    pos:   [ 0,  1,  2,  1,  2,  0],
+    pos:   [0, 1, 2, 1, 2, 0],
+
     notes: ['Nuanced, reform lobbying rules', 'Balance speech & harm', 'Repeal Hate Crime Act, protect free speech', 'Protect free speech', 'Maximise free speech, repeal Hate Crime Act', 'Balance speech & harm'],
+
     src:   ['M', 'W', 'M', 'M', 'M', 'W'],
+
     top:   [false, false, true, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
   {
     label: 'Rural Affairs & Farming', emoji: '🚜',
     salience: 0.50,
-    pos:   [ 0,  1,  2,  1,  1,  0],
+    pos:   [0, 1, 2, 1, 1, 0],
+
     notes: ['No clear lean', 'Support rural communities', 'Strong rural support, farming focus', 'Fair Deal for Rural Healthcare', 'More rural support', 'No clear lean'],
+
     src:   ['A', 'M', 'M', 'M', 'W', 'A'],
+
     top:   [false, false, false, false, false, false],
+
     least: [false, false, false, false, false, false],
+
   },
 ];
 function posToStance(p) {
